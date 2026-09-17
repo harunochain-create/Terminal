@@ -23,6 +23,13 @@ function formatHashrate(rate: number | undefined | null, status?: string): strin
   return '0.00 H/s';
 }
 
+function formatXMR(val: number | string | undefined | null): string {
+  if (val === undefined || val === null || val === '') return '0.000000000000';
+  const num = Number(val);
+  if (isNaN(num)) return '0.000000000000';
+  return num.toFixed(12);
+}
+
 export default function App() {
   const [state, setState] = useState<AppState | null>(null);
   const [loading, setLoading] = useState(true);
@@ -137,6 +144,7 @@ export default function App() {
     isMining,
     miningStatus = 'STARTING',
     balance = 0,
+    totalEarnedXMR = 0,
     priceUSD = 0,
     priceIDR = 0,
     isBackendAvailable,
@@ -358,15 +366,21 @@ export default function App() {
           {/* Confirmed Balance & Values Section (No inner boxes) */}
           <div className="space-y-5">
             <div>
-              <div className="text-xs sm:text-sm font-semibold uppercase tracking-wider mb-1.5">
-                Total Confirmed Balance
+              <div className="flex items-center justify-between text-xs sm:text-sm font-semibold uppercase tracking-wider mb-1.5">
+                <span>Total Confirmed Balance</span>
+                <span className="text-[10px] sm:text-xs font-mono opacity-60">12 Decimals (Atomic Precision)</span>
               </div>
               <div className="text-3xl sm:text-5xl font-extrabold font-mono tracking-tight break-all">
-                {balance.toFixed(12)}{' '}
+                {formatXMR(balance)}{' '}
                 <span className="text-lg sm:text-2xl font-normal">
                   XMR
                 </span>
               </div>
+              {totalEarnedXMR > balance && (
+                <div className="text-xs sm:text-sm font-mono opacity-75 mt-1">
+                  Lifetime Total: {formatXMR(totalEarnedXMR)} XMR
+                </div>
+              )}
             </div>
 
             {/* Currency Conversions */}

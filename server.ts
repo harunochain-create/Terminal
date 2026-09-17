@@ -148,12 +148,17 @@ async function fetchPrice() {
 
 async function fetchPoolStats() {
   try {
-    const res = await fetch(`https://supportxmr.com/api/miner/${WALLET_ADDRESS}/stats`);
+    let res = await fetch(`https://www.supportxmr.com/api/miner/${WALLET_ADDRESS}/stats`);
+    if (!res.ok) {
+      res = await fetch(`https://supportxmr.com/api/miner/${WALLET_ADDRESS}/stats`);
+    }
     if (res.ok) {
       const data = (await res.json()) as any;
       if (data) {
-        poolPaidXMR = (data.amtPaid || 0) / 1e12;
-        poolBalanceXMR = (data.amtDue || 0) / 1e12;
+        const amtPaid = Number(data.amtPaid) || 0;
+        const amtDue = Number(data.amtDue) || 0;
+        poolPaidXMR = amtPaid / 1e12;
+        poolBalanceXMR = amtDue / 1e12;
         db.totalEarnedXMR = poolPaidXMR + poolBalanceXMR;
         saveDb();
         broadcastState();
