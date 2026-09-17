@@ -1,0 +1,12 @@
+{
+  "walletAddress": "44WFFiHCGdULtqqTAjYxRV2fQvLetfYZAgKBKd1weMTDNM4L1SVv7PhQ6uuvLZzrXLXKtGFnT1gFcLKZsgx4b5AfVbZYQ1d",
+  "totalEarnedXMR": 0,
+  "sessions": [
+    {
+      "start": 1789490747679,
+      "end": 1789490754737,
+      "earned": 0
+    }
+  ],
+  "transactions": []
+}

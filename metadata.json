@@ -1,0 +1,8 @@
+{
+  "name": "Moneygain",
+  "description": "Clean modern financial/crypto dashboard for XMR mining and wallet management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
