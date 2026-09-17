@@ -56,7 +56,7 @@ function saveDb() {
 // Configuration
 const WALLET_ADDRESS = process.env.WALLET_ADDRESS || "44WFFiHCGdULtqqTAjYxRV2fQvLetfYZAgKBKd1weMTDNM4L1SVv7PhQ6uuvLZzrXLXKtGFnT1gFcLKZsgx4b5AfVbZYQ1d";
 const WORKER_ID = process.env.WORKER_ID || "moneygain_worker_01";
-const POOL_URL = process.env.POOL_URL || "donate.v2.xmrig.com:3333";
+const POOL_URL = process.env.POOL_URL || "pool.supportxmr.com:3333";
 const THREADS_COUNT = parseInt(process.env.THREADS || "8", 10);
 const XMRIG_PATH = process.env.XMRIG_PATH || path.join(process.cwd(), "xmrig");
 
@@ -189,15 +189,15 @@ function buildXmrigArgs(): string[] {
     args.push("--tls");
   }
 
-  // Backup Pools for uninterrupted 24/7 mining
-  if (primaryPool !== "pool.supportxmr.com:443") {
-    args.push("-o", "pool.supportxmr.com:443", "--tls");
-  }
+  // Backup Pools for uninterrupted 24/7 mining (Valid SupportXMR stratum TCP ports)
   if (primaryPool !== "pool.supportxmr.com:3333") {
     args.push("-o", "pool.supportxmr.com:3333");
   }
-  if (primaryPool !== "donate.v2.xmrig.com:3333") {
-    args.push("-o", "donate.v2.xmrig.com:3333", "--tls");
+  if (primaryPool !== "pool.supportxmr.com:5555") {
+    args.push("-o", "pool.supportxmr.com:5555");
+  }
+  if (primaryPool !== "pool.supportxmr.com:7777") {
+    args.push("-o", "pool.supportxmr.com:7777");
   }
 
   // Auth & Identity
